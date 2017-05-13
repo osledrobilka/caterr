@@ -1,0 +1,9 @@
+/* Authentication Actions */
+export const EMAIL_CHANGED = 'EMAIL_CHANGED';
+export const PASSWORD_CHANGED = 'PASSWORD_CHANGED';
+export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
+export const LOGIN_USER_FAIL = 'LOGIN_USER_FAIL';
+export const LOGIN_USER_START = 'LOGIN_USER_START';
+export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS';
+export const LOGOUT_USER_FAIL = 'LOGOUT_USER_FAIL';
