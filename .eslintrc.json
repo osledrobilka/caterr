@@ -1,0 +1,11 @@
+{
+    "extends": "rallycoding",
+    "document": true,
+    "rules": {
+        "arrow-body-style": 0,
+        "experimentalObjectRestSpread": 0
+    },
+    "globals": {
+        "document": true
+    }
+}

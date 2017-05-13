@@ -3,10 +3,6 @@ import { View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { CardSection } from './index';
 
-/**
- *  Stateless component for all of the touchable headers throughout our app,
-    including the login-form and the add-med-form.
- */
 const Title = (props) => {
     const {
         startIconName,

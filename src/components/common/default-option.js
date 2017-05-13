@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-/* Renders the component for the default text displayed below the grid */
 const DefaultOption = ({ text }) => {
     const { optionsTextStyle } = styles;
 

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
-import firebase from 'firebase';
+// import firebase from 'firebase';
 import reducers from './reducers';
 import Router from './router';
 
@@ -39,21 +40,21 @@ class App extends Component {
 export default App;
 
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    header: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    subheader: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    }
-});
+// const styles = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//         backgroundColor: '#F5FCFF',
+//     },
+//     header: {
+//         fontSize: 20,
+//         textAlign: 'center',
+//         margin: 10,
+//     },
+//     subheader: {
+//         textAlign: 'center',
+//         color: '#333333',
+//         marginBottom: 5,
+//     }
+// });

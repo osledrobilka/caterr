@@ -1,7 +1,6 @@
 import { Actions } from 'react-native-router-flux';
 import { AsyncStorage } from 'react-native';
 import firebase from 'firebase';
-import jwtDecode from 'jwt-decode';
 
 import {
     EMAIL_CHANGED,
@@ -37,13 +36,13 @@ export const loginUser = ({ emailAddress, password, type }) => {
      return (dispatch) => {
          firebase.auth().signInWithEmailAndPassword(emailAddress, password)
              .then(user => {
-                const type = `login-${type}`;
+                const typeString = `login-${type}`;
                 AsyncStorage.mergeItem('authData', JSON.stringify(user))
                 .then(() => {
                     const name = user.providerData[0].displayName || '';
                     const email = user.providerData[0].email || '';
                     const profileImageUrl = user.providerData[0].photoURL || '';
-                    return loginUserSuccess(dispatch, type, user, {
+                    return loginUserSuccess(dispatch, typeString, user, {
                         name,
                         email,
                         profileImageUrl
@@ -115,7 +114,7 @@ const loginUserSuccess = (dispatch, type, user, authData) => {
             authData
         }
     });
-    
+
     if (type === 'login-admin') {
         Actions.mainAdmin();
     } else if (type === 'login-staff') {

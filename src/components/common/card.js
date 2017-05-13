@@ -1,10 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 
-/**
- *  Stateless component for each distinctive section of a screen.
- *  These sections are further divided by the card-section component.
- */
 const Card = ({ children, style }) => {
     const { viewStyle } = styles;
 

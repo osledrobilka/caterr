@@ -3,10 +3,6 @@ import { View, TextInput, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { CardSection } from './index';
 
-/**
- *  Stateless component for all of the input fields throughout our app,
-    including the login-form and the add-med-form.
- */
 const Input = (props) => {
     const {
         value,
