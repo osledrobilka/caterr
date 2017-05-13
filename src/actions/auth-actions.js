@@ -33,16 +33,17 @@ export const loginUserStart = () => ({
     type: LOGIN_USER_START
 });
 
-export const loginUser = ({ emailAddress, password }) => {
+export const loginUser = ({ emailAddress, password, type }) => {
      return (dispatch) => {
          firebase.auth().signInWithEmailAndPassword(emailAddress, password)
              .then(user => {
+                const type = `login-${type}`;
                 AsyncStorage.mergeItem('authData', JSON.stringify(user))
                 .then(() => {
                     const name = user.providerData[0].displayName || '';
                     const email = user.providerData[0].email || '';
                     const profileImageUrl = user.providerData[0].photoURL || '';
-                    return loginUserSuccess(dispatch, user, {
+                    return loginUserSuccess(dispatch, type, user, {
                         name,
                         email,
                         profileImageUrl
@@ -51,7 +52,7 @@ export const loginUser = ({ emailAddress, password }) => {
                 const name = user.providerData[0].displayName || '';
                 const email = user.providerData[0].email || '';
                 const profileImageUrl = user.providerData[0].photoURL || '';
-                return loginUserSuccess(dispatch, user, {
+                return loginUserSuccess(dispatch, type, user, {
                     name,
                     email,
                     profileImageUrl
@@ -64,13 +65,14 @@ export const loginUser = ({ emailAddress, password }) => {
  };
 
  export const registerUser = ({ emailAddress, password }) => {
+    const type = 'reg-staff';
     return (dispatch) => {
         firebase.auth().createUserWithEmailAndPassword(emailAddress, password)
             .then(authData => {
                 const name = authData.providerData[0].displayName || '';
                 const email = authData.providerData[0].email || '';
                 const profileImageUrl = authData.providerData[0].photoURL || '';
-                return loginUserSuccess(dispatch, authData, {
+                return loginUserSuccess(dispatch, type, authData, {
                     name,
                     email,
                     profileImageUrl
@@ -105,7 +107,7 @@ export const logoutUser = () => {
     };
 };
 
-const loginUserSuccess = (dispatch, user, authData) => {
+const loginUserSuccess = (dispatch, type, user, authData) => {
     dispatch({
         type: LOGIN_USER_SUCCESS,
         data: {
@@ -113,7 +115,14 @@ const loginUserSuccess = (dispatch, user, authData) => {
             authData
         }
     });
-    Actions.bluetooth();
+    
+    if (type === 'login-admin') {
+        Actions.mainAdmin();
+    } else if (type === 'login-staff') {
+        Actions.mainStaff();
+    } else if (type === 'reg-staff') {
+        Actions.createStaff();
+    }
 };
 
 const loginUserFail = (dispatch, error) => {
