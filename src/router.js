@@ -29,8 +29,18 @@ const RouterComponent = () => {
                     <Scene
                         key='auth'
                         component={AuthPage}
-                        titleStyle={[navBarTitleStyle, { color: '#FFFFFF' }]}
-                        navigationBarStyle={{ backgroundColor: '#0D47A1' }}
+                        titleStyle={[navBarTitleStyle, { color: '#f8f8f8' }]}
+                        navigationBarStyle={{ backgroundColor: '#636363' }}
+                        title=''
+                        sceneStyle={{ paddingTop: 60 }}
+                    />
+                </Scene>
+                <Scene key='regForm'>
+                    <Scene
+                        key='reg'
+                        component={AuthPage}
+                        titleStyle={[navBarTitleStyle, { color: '#f8f8f8' }]}
+                        navigationBarStyle={{ backgroundColor: '#636363' }}
                         title=''
                         sceneStyle={{ paddingTop: 60 }}
                     />
@@ -112,23 +122,23 @@ const RouterComponent = () => {
 
      const styles = {
          navBarStyle: {
-             backgroundColor: '#FAFAFA',
+             backgroundColor: '#636363',
              borderBottomColor: 'transparent',
              borderBottomWidth: 65
          },
          navBarTitleStyle: {
-             color: '#092949',
+             color: '#F8F8F8',
              fontSize: 26,
              letterSpacing: 2,
              marginTop: -7,
              textAlign: 'center',
          },
          barButtonTextStyle: {
-             color: '#092949',
+             color: '#F8F8F8',
              fontSize: 20
          },
          barButtonIconStyle: {
-             tintColor: '#092949'
+             tintColor: '#F8F8F8'
          }
      };
 

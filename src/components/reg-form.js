@@ -1,23 +1,10 @@
-// #4c4c4c Dk Grey
-// #636363 Grey
-// #d1d1d1 Lt Grey
-// #f8f8f8 Off White
-// #b1dbf6 Blue
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text } from 'react-native';
-// import { View, Text, Image, AsyncStorage } from 'react-native';
-// import { Actions } from 'react-native-router-flux';
+import { View, Text, Image } from 'react-native';
 import * as actions from '../actions';
-import { CustomButton, Input, Spinner, Card, TitleButton } from './common';
+import { CustomButton, Input, Spinner, Card, } from './common';
 
 class LoginForm extends Component {
-    state = {
-        action: 'login',
-        type: null,
-    };
-
     componentWillMount() {
         // AsyncStorage.getItem('authData')
         //     .then((authData) => {
@@ -45,7 +32,7 @@ class LoginForm extends Component {
      *  Helper function used to create an action to initiate an authentication
         request to firebase on the onPress event of our login page button.
      */
-    onSubmit({ action, type }) {
+    onSubmit(action) {
         const {
             email,
             password,
@@ -72,20 +59,10 @@ class LoginForm extends Component {
             loginError(error);
         } else if (EMAIL && PASSWORD) {
             if (action === 'register') {
-                registerUser({ emailAddress: EMAIL, password: PASSWORD, type });
+                registerUser({ emailAddress: EMAIL, password: PASSWORD });
             } else {
                 loginUser({ emailAddress: EMAIL, password: PASSWORD });
             }
-        }
-    }
-
-    toggleType(type) {
-        const currentType = this.state.type;
-
-        if (type === currentType) {
-            this.setState({ type: null });
-        } else {
-            this.setState({ type });
         }
     }
 
@@ -94,8 +71,7 @@ class LoginForm extends Component {
     }
 
     renderButton() {
-        const { email, password, loading } = this.props;
-        const { action, type } = this.state;
+        const { email, password } = this.props;
         const {
             buttonViewStyle,
             buttonStyle1,
@@ -110,90 +86,58 @@ class LoginForm extends Component {
             disabledBool = true;
         }
 
-        if (loading) {
-            return <Spinner />;
-        } else if (action === 'login') {
-            return (
-                <View style={buttonViewStyle}>
-                    <CustomButton
-                        onPress={this.onSubmit.bind(this, { action, type: null })}
-                        customTextStyle={buttonTextStyle1}
-                        customStyle={buttonStyle1}
-                        disabled={disabledBool}
-                    >
-                        Log In
-                    </CustomButton>
-                    <CustomButton
-                        onPress={this.setState({ action: 'register' })}
-                        customTextStyle={buttonTextStyle2}
-                        customStyle={buttonStyle2}
-                    >
-                        New to Caterr?
-                        Sign up for a free account!
-                    </CustomButton>
-                    <CustomButton
-                        onPress={() => { console.log('Reset Password.'); }}
-                        customTextStyle={buttonTextStyle2}
-                        customStyle={buttonStyle2}
-                    >
-                        Trouble logging in?
-                        Reset your email/password.
-                    </CustomButton>
-                    <CustomButton
-                        onPress={() => { console.log('Contact Support.'); }}
-                        customTextStyle={buttonTextStyle2}
-                        customStyle={buttonStyle3}
-                    >
-                        Need help?
-                        Contact Caterr's support team.
-                    </CustomButton>
-                </View>
-            );
-        } else if (action === 'register') {
-            let hostCheckBox = 'square-o';
-            let staffCheckBox = 'square-o';
-
-            if (type === 'host') {
-                hostCheckBox = 'check-square-o';
-            } else if (type === 'staff') {
-                staffCheckBox = 'check-square-o';
-            }
-
-            return (
-                <View style={buttonViewStyle}>
-                    <TitleButton
-                        onPress={this.toggleType.bind(this, 'staff')}
-                        startIconName={staffCheckBox}
-                        startIconSize={20}
-                        startIconColor={'#f8f8f8'}
-                        title={'I want to join the Caterr team.'}
-                    />
-                    <TitleButton
-                        onPress={this.toggleType.bind(this, 'host')}
-                        startIconName={hostCheckBox}
-                        startIconSize={20}
-                        startIconColor={'#f8f8f8'}
-                        title={'I want Caterr to staff my next event.'}
-                    />
-                    <CustomButton
-                        onPress={this.onSubmit.bind(this, { action, type })}
-                        customTextStyle={buttonTextStyle1}
-                        customStyle={buttonStyle1}
-                        disabled={disabledBool}
-                    >
-                        Sign Up
-                    </CustomButton>
-                </View>
-            );
-        }
+        return (
+            <View style={buttonViewStyle}>
+                <CustomButton
+                    onPress={this.onSubmit.bind(this, 'login')}
+                    customTextStyle={buttonTextStyle1}
+                    customStyle={buttonStyle1}
+                    disabled={disabledBool}
+                >
+                    Log In
+                </CustomButton>
+                {/*<CustomButton
+                    onPress={this.onSubmit.bind(this, 'register')}
+                    customTextStyle={buttonTextStyle1}
+                    customStyle={buttonStyle1}
+                    disabled={disabledBool}
+                >
+                    Sign Up
+                </CustomButton> */}
+                <CustomButton
+                    onPress={() => { console.log('Sign up.'); }}
+                    customTextStyle={buttonTextStyle2}
+                    customStyle={buttonStyle2}
+                >
+                    New to Caterr?
+                    Sign up for a free account!
+                </CustomButton>
+                <CustomButton
+                    onPress={() => { console.log('Reset Password.'); }}
+                    customTextStyle={buttonTextStyle2}
+                    customStyle={buttonStyle2}
+                >
+                    Trouble logging in?
+                    Reset your email/password.
+                </CustomButton>
+                <CustomButton
+                    onPress={() => { console.log('Contact Support.'); }}
+                    customTextStyle={buttonTextStyle2}
+                    customStyle={buttonStyle3}
+                >
+                    Need help?
+                    Contact Caterr's support team.
+                </CustomButton>
+            </View>
+        );
     }
 
     render() {
         const { email, password, error } = this.props;
         const {
             viewStyle,
-            headerTextStyle,
-            headerViewStyle,
+            imageStyle,
+            imageViewStyle,
             errorTextStyle,
             cardStyle,
             cardSectionStyle,
@@ -210,10 +154,11 @@ class LoginForm extends Component {
 
         return (
             <View style={viewStyle}>
-                <View style={headerViewStyle}>
-                    <Text style={headerTextStyle}>
-                        Caterr
-                    </Text>
+                <View style={imageViewStyle}>
+                    <Image
+                        style={imageStyle}
+                        source={elliegridLogo}
+                    />
                 </View>
                 <Card style={cardStyle}>
                     <Input
@@ -276,7 +221,11 @@ const styles = {
         paddingTop: 5,
         fontFamily: 'SourceSansPro-Light'
     },
-    headerViewStyle: {
+    imageStyle: {
+        width: 50,
+        height: 50
+    },
+    imageViewStyle: {
         paddingTop: 35,
         paddingBottom: 25,
         alignSelf: 'center'
