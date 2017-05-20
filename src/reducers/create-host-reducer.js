@@ -3,8 +3,21 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-    type: '',
-
+    /* company & individual */
+    contactFirstName: '',
+    contactLastName: '',
+    contactPhone: '',
+    contactEmail: '',
+    address: '',
+    city: '',
+    state: '',
+    zip: '',
+    accountType: false,
+    // company or individual
+    /* company only */
+    companyName: '',
+    companyPhone: '',
+    companyUrl: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
