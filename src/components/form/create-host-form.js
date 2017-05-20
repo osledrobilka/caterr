@@ -57,11 +57,19 @@ class CreateHostForm extends Component {
             companyPhone,
             companyUrl,
             hostCreate,
-            clearHostForm
+            clearHostForm,
+            thisHost
         } = this.props;
+
+        let uid = null;
+
+        if (thisHost) {
+            uid = thisHost.uid;
+        }
 
         if (accountType) {
             hostCreate({
+                uid,
                 contactFirstName,
                 contactLastName,
                 contactPhone,
@@ -77,6 +85,7 @@ class CreateHostForm extends Component {
             });
         } else {
             hostCreate({
+                uid,
                 contactFirstName,
                 contactLastName,
                 contactPhone,
@@ -85,10 +94,14 @@ class CreateHostForm extends Component {
                 city,
                 state,
                 zip,
-                accountType
+                accountType,
+                companyName: null,
+                companyPhone: null,
+                companyUrl: null
             });
         }
         clearHostForm();
+        // TODO: ADD THIS KEY TO SCENE IN ROUTER
         Actions.hostMain({ type: ActionConst.RESET });
     }
 

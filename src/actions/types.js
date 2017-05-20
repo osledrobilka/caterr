@@ -8,7 +8,13 @@ export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS';
 export const LOGOUT_USER_FAIL = 'LOGOUT_USER_FAIL';
 
-/* Form Actions */
+/* Host Actions */
 export const HOST_FORM_UPDATE = 'HOST_FORM_UPDATE';
+export const CLEAR_HOST_FORM = 'CLEAR_HOST_FORM';
+export const HOST_FETCH_SUCCESS = 'HOST_FETCH_SUCCESS';
+export const TOGGLE_HOST_DRAWER = 'TOGGLE_HOST_DRAWER';
+export const MANAGE_HOST_ACCOUNT = 'MANAGE_HOST_ACCOUNT';
+
+/* Staff Actions */
 export const STAFF_FORM_UPDATE = 'STAFF_FORM_UPDATE';
 export const EVENT_FORM_UPDATE = 'EVENT_FORM_UPDATE';
