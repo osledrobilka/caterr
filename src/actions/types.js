@@ -7,3 +7,8 @@ export const LOGIN_USER_START = 'LOGIN_USER_START';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS';
 export const LOGOUT_USER_FAIL = 'LOGOUT_USER_FAIL';
+
+/* Form Actions */
+export const HOST_FORM_UPDATE = 'HOST_FORM_UPDATE';
+export const STAFF_FORM_UPDATE = 'STAFF_FORM_UPDATE';
+export const EVENT_FORM_UPDATE = 'EVENT_FORM_UPDATE';
