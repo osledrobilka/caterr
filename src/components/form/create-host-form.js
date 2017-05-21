@@ -60,7 +60,6 @@ class CreateHostForm extends Component {
             clearHostForm,
             thisHost
         } = this.props;
-
         let uid = null;
 
         if (thisHost) {
@@ -100,7 +99,9 @@ class CreateHostForm extends Component {
                 companyUrl: null
             });
         }
+
         clearHostForm();
+
         // TODO: ADD THIS KEY TO SCENE IN ROUTER
         Actions.hostMain({ type: ActionConst.RESET });
     }
@@ -186,7 +187,11 @@ class CreateHostForm extends Component {
             contactLastName,
             contactPhone,
             contactEmail,
-            accountType
+            accountType,
+            address,
+            city,
+            state,
+            zip
         } = this.props;
         let accountTypeString = 'Individual';
 
@@ -283,6 +288,70 @@ class CreateHostForm extends Component {
                         </CardSection>
                     </View>
                     {this.renderAdditionalDetails()}
+                    <Input
+                        value={address}
+                        onChangeText={value => hostFormUpdate({
+                            prop: 'address',
+                            value
+                        })}
+                        placeholder={'Address'}
+                        autoCapitalize={'words'}
+                        startIconName={'address-card'}
+                        startIconSize={20}
+                        startIconColor={'#23324D'}
+                        selectionColor={'#0D47A1'}
+                        keyboardType={'default'}
+                        returnKeyType={'done'}
+                        autoFocus={'true'}
+                    />
+                    <Input
+                        value={city}
+                        onChangeText={value => hostFormUpdate({
+                            prop: 'city',
+                            value
+                        })}
+                        placeholder={'City'}
+                        autoCapitalize={'words'}
+                        startIconName={'address-card'}
+                        startIconSize={20}
+                        startIconColor={'#23324D'}
+                        selectionColor={'#0D47A1'}
+                        keyboardType={'default'}
+                        returnKeyType={'done'}
+                        autoFocus={'true'}
+                    />
+                    <Input
+                        value={state}
+                        onChangeText={value => hostFormUpdate({
+                            prop: 'state',
+                            value
+                        })}
+                        placeholder={'State'}
+                        autoCapitalize={'words'}
+                        startIconName={'address-card'}
+                        startIconSize={20}
+                        startIconColor={'#23324D'}
+                        selectionColor={'#0D47A1'}
+                        keyboardType={'default'}
+                        returnKeyType={'done'}
+                        autoFocus={'true'}
+                    />
+                    <Input
+                        value={zip}
+                        onChangeText={value => hostFormUpdate({
+                            prop: 'zip',
+                            value
+                        })}
+                        placeholder={'Zip Code'}
+                        autoCapitalize={'words'}
+                        startIconName={'address-card'}
+                        startIconSize={20}
+                        startIconColor={'#23324D'}
+                        selectionColor={'#0D47A1'}
+                        keyboardType={'default'}
+                        returnKeyType={'done'}
+                        autoFocus={'true'}
+                    />
                 </Card>
                 <View style={buttonViewStyle}>
                     <Card style={cardStyle2}>
