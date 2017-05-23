@@ -77,8 +77,7 @@ const styles = {
         color: '#23324D',
         fontSize: 17,
         lineHeight: 23,
-        marginTop: -2,
-        fontFamily: 'SourceSansPro-Light'
+        marginTop: -2
     },
     titleViewStyle: {
         justifyContent: 'flex-start',

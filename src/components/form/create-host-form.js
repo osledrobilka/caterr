@@ -402,7 +402,6 @@ const styles = {
         width: 245
     },
     italicTextStyle: {
-        // fontFamily: 'SourceSansPro-Light',
         paddingLeft: 15,
         fontSize: 16,
         fontStyle: 'italic',

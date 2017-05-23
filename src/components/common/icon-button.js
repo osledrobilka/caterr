@@ -42,7 +42,6 @@ const styles = {
     buttonStyle: {
     },
     textStyle: {
-        fontFamily: 'SourceSansPro-Light'
     }
 };
 

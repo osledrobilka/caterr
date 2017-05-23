@@ -3,7 +3,7 @@ import { Scene, Router, Actions } from 'react-native-router-flux';
 import AuthPage from './components/auth-page.js';
 import MainAdminPage from './components/main-admin-page.js';
 import MainStaffPage from './components/main-staff-page.js';
-import CreateStaffForm from './components/create-staff-form.js';
+import CreateStaffForm from './components/form/create-staff-form.js';
 
 // mainAdmin
 // mainStaff

@@ -47,8 +47,7 @@ const styles = {
     textStyle: {
         fontSize: 20,
         textAlign: 'center',
-        color: '#23324D',
-        fontFamily: 'SourceSansPro-Light'
+        color: '#23324D'
     },
     cardSectionStyle: {
         flexDirection: 'column',

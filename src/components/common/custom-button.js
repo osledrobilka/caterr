@@ -47,7 +47,6 @@ const styles = {
     },
     textStyle: {
         color: '#FFFFFF',
-        fontFamily: 'SourceSansPro-Light',
         letterSpacing: 2
     }
 };

@@ -273,8 +273,7 @@ const styles = {
         alignSelf: 'center',
         paddingBottom: 25,
         letterSpacing: 2,
-        paddingTop: 5,
-        fontFamily: 'SourceSansPro-Light'
+        paddingTop: 5
     },
     headerViewStyle: {
         paddingTop: 35,

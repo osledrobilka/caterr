@@ -22,8 +22,7 @@ const styles = {
         marginBottom: 20,
       /* Layout */
         justifyContent: 'center',
-        alignSelf: 'center',
-        fontFamily: 'SourceSansPro-Light'
+        alignSelf: 'center'
     }
 };
 

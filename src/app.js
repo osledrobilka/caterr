@@ -3,26 +3,16 @@ import { View } from 'react-native';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
-// import firebase from 'firebase';
+import firebase from 'firebase';
 import reducers from './reducers';
 import Router from './router';
+import config from '../firebase-config';
 
 class App extends Component {
-
-    // componentWillMount() {
-    //     /* Initialize Firebase */
-    //     const config = {
-    //         apiKey: '',
-    //         authDomain: '',
-    //         databaseURL: '',
-    //         storageBucket: '',
-    //         messagingSenderId: '',
-    //         setPersistenceEnabled: true,
-    //         keepSynced: true
-    //     };
-    //
-    //     firebase.initializeApp(config);
-    // }
+    componentWillMount() {
+        /* Initialize Firebase */
+        firebase.initializeApp(config);
+    }
 
     render() {
         const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
@@ -30,7 +20,7 @@ class App extends Component {
         return (
             <Provider store={store}>
                 <View style={{ flex: 1 }}>
-                        <Router connected={this.state.connected} />
+                        <Router />
                 </View>
             </Provider>
         );

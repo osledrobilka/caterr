@@ -115,7 +115,6 @@ const styles = {
         flexDirection: 'row',
         position: 'relative',
         flex: 14,
-        fontFamily: 'SourceSansPro-Light',
         height: 20
     },
     textStyle: {
