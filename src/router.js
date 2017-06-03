@@ -7,16 +7,6 @@ import MainStaffPage from './components/main-staff-page.js';
 import CreateStaffForm from './components/form/create-staff-form.js';
 import MainHostPage from './components/main-host-page.js';
 import CreateHostForm from './components/form/create-host-form.js';
-import Colors from './components/common';
-
-const {
-    // customBeige,
-    // customGrey_exLight,
-    // customGrey_light,
-    // customGrey_med,
-    customGrey_dark,
-    customBlue
-} = Colors;
 
 const RouterComponent = () => {
     const {
@@ -139,24 +129,24 @@ const RouterComponent = () => {
 
      const styles = {
          navBarStyle: {
-             backgroundColor: customGrey_dark,
+             backgroundColor: '#4c4c4c',
              borderBottomColor: 'transparent',
              borderBottomWidth: 65
          },
          navBarTitleStyle: {
-             color: customBlue,
+             color: '#B1DBF6',
              fontSize: 26,
              letterSpacing: 2,
              textAlign: 'center',
              fontFamily: 'Inconsolata-Regular'
          },
          barButtonTextStyle: {
-             color: customBlue,
+             color: '#B1DBF6',
              fontSize: 20,
              fontFamily: 'Inconsolata-Regular'
          },
          barButtonIconStyle: {
-             tintColor: customBlue,
+             tintColor: '#B1DBF6',
          },
          sceneStyle: {
              paddingTop: 60

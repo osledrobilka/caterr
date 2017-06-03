@@ -10,31 +10,6 @@ import moment from 'moment';
 import * as actions from '../actions';
 import { CustomButton, Input, Spinner, Card, Colors, AuthPageStyles } from './common';
 
-const {
-    customWhite,
-    // customBeige,
-    // customGrey_exLight,
-    customGrey_light,
-    // customGrey_med,
-    customGrey_dark,
-    customBlue
-} = Colors;
-
-const {
-    buttonStyle1,
-    buttonStyle2,
-    buttonStyle3,
-    cardStyle,
-    inputStyle,
-    sectionStyleCard,
-    textStyleButton1,
-    textStyleButton2,
-    viewStyle,
-    viewStyleButton,
-    viewStyleInput,
-    viewStyleStart
-} = AuthPageStyles;
-
 class AuthPage extends Component {
     componentWillMount() {
         AsyncStorage.multiGet(
@@ -145,6 +120,14 @@ class AuthPage extends Component {
 
     renderInputs() {
         const { register, login, forgotPassword, email, password } = this.props;
+        const { customGrey_light, customGrey_dark, customWhite } = Colors;
+        const {
+            cardStyle,
+            inputStyle,
+            viewStyleInput,
+            sectionStyleCard,
+            viewStyleStart
+        } = AuthPageStyles;
 
         if (register || login) {
             return (
@@ -228,6 +211,17 @@ class AuthPage extends Component {
             type,
             forgotPassword
         } = this.props;
+        const {
+            customBlue
+        } = Colors;
+        const {
+            viewStyleButton,
+            textStyleButton1,
+            buttonStyle1,
+            textStyleButton2,
+            buttonStyle2,
+            buttonStyle3
+        } = AuthPageStyles;
 
         let disabledBool = false;
         let disabledBool2 = false;
@@ -472,6 +466,7 @@ class AuthPage extends Component {
     }
 
     render() {
+        const { viewStyle } = AuthPageStyles;
         return (
             <View style={viewStyle}>
                 {this.renderInputs()}

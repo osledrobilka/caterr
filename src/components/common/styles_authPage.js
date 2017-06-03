@@ -6,7 +6,7 @@ const {
     // customGrey_exLight,
     // customGrey_light,
     // customGrey_med,
-    customGrey_dark,
+    customGreyDark,
     customBlue
 } = Colors;
 
@@ -16,33 +16,33 @@ export const AuthPageStyles = {
         borderColor: customWhite
     },
     buttonStyle2: {
-        backgroundColor: customGrey_dark,
+        backgroundColor: customGreyDark,
         borderColor: customBlue,
         marginBottom: 5,
         marginTop: 20,
         height: 15
     },
     buttonStyle3: {
-        backgroundColor: customGrey_dark,
+        backgroundColor: customGreyDark,
         borderColor: customBlue,
         marginTop: 5,
         marginBottom: 5,
         height: 15
     },
     cardStyle: {
-        backgroundColor: customGrey_dark,
+        backgroundColor: customGreyDark,
         borderColor: customBlue,
         shadowColor: customBlue,
     },
     inputStyle: {
-        backgroundColor: customGrey_dark,
+        backgroundColor: customGreyDark,
         fontSize: 20,
         color: customBeige,
         marginBottom: -3,
         height: 24
     },
     sectionStyleCard: {
-        backgroundColor: customGrey_dark,
+        backgroundColor: customGreyDark,
         borderColor: customBlue,
         marginTop: -10
     },
@@ -54,7 +54,7 @@ export const AuthPageStyles = {
         fontSize: 13
     },
     viewStyle: {
-        backgroundColor: customGrey_dark,
+        backgroundColor: customGreyDark,
         flexDirection: 'column',
         flex: 1
     },
@@ -67,7 +67,7 @@ export const AuthPageStyles = {
     viewStyleInput: {
         borderBottomColor: customBeige,
         borderBottomWidth: 1,
-        backgroundColor: customGrey_dark,
+        backgroundColor: customGreyDark,
         paddingBottom: 15
     },
     viewStyleStart: {
