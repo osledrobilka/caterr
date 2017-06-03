@@ -1,15 +1,18 @@
+/* eslint no-underscore-dangle: 0 */
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-// import { View, Text } from 'react-native';
 import { View, Text, Image, AsyncStorage } from 'react-native';
+import { connect } from 'react-redux';
+
 import { Actions } from 'react-native-router-flux';
+import moment from 'moment';
+
 import * as actions from '../actions';
 import { CustomButton, Input, Spinner, Card, TitleButton } from './common';
 
 class AuthPage extends Component {
     componentWillMount() {
         AsyncStorage.multiGet(
-            ['@email', '@uid', '@lastLogin']
+            ['@email', '@uid', '@regComplete', '@type', '@lastLogin']
         )
             .then(storedDetails => {
                 console.log('storedDetails --> ', storedDetails);
@@ -17,7 +20,9 @@ class AuthPage extends Component {
                 if (storedDetails !== null) {
                     const email = storedDetails[0][1];
                     const uid = storedDetails[1][1];
-                    const lastLoginUTC = JSON.parse(storedDetails[2][1]);
+                    const regComplete = storedDetails[2][1];
+                    const type = storedDetails[3][1];
+                    const lastLoginUTC = JSON.parse(storedDetails[4][1]);
                     const lastLoginMoment = moment(lastLoginUTC);
                     const timeExpired = moment(lastLoginMoment).add(1, 'h');
                     const currentTime = moment(new Date());
@@ -34,9 +39,19 @@ class AuthPage extends Component {
                         };
                         console.log('details --> ', details);
 
-                        updateUser(details);
-                        // Actions.drawer();
-                        Actions.bluetooth();
+                        if (regComplete) {
+                            if (type === 'host') {
+
+                            } else {
+
+                            }
+                        } else {
+                            if (type === 'host') {
+
+                            } else {
+
+                            }
+                        }
                     }
                 }
             });

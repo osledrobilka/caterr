@@ -1,9 +1,11 @@
 import React from 'react';
-import { Scene, Router, Actions } from 'react-native-router-flux';
+import { Scene, Router } from 'react-native-router-flux';
 import AuthPage from './components/auth-page.js';
 import MainAdminPage from './components/main-admin-page.js';
 import MainStaffPage from './components/main-staff-page.js';
 import CreateStaffForm from './components/form/create-staff-form.js';
+import MainHostPage from './components/main-host-page.js';
+import CreateHostForm from './components/form/create-host-form.js';
 
 // mainAdmin
 // mainStaff
@@ -53,15 +55,6 @@ const RouterComponent = () => {
                         sceneStyle={{ paddingTop: 60 }}
                     />
                 </Scene>
-                {/*// rightTitle=''
-                // onRight={() => {
-                //     BleManager.stopScan()
-                //     .then(() => {
-                //         // Actions.drawer();
-                //         Actions.name();
-                //     });
-                // }}
-                // rightButtonTextStyle={barButtonTextStyle}*/}
                 <Scene key='createStaff'>
                     <Scene
                         key='newStaff'
@@ -78,7 +71,32 @@ const RouterComponent = () => {
                         sceneStyle={{ paddingTop: 60 }}
                     />
                 </Scene>
-                {/*<Scene
+                <Scene key='createHost'>
+                    <Scene
+                        key='newHost'
+                        component={CreateHostForm}
+                        title='New Host'
+                        sceneStyle={{ paddingTop: 60 }}
+                    />
+                </Scene>
+                <Scene key='mainHost'>
+                    <Scene
+                        key='host'
+                        component={MainHostPage}
+                        title='Home'
+                        sceneStyle={{ paddingTop: 60 }}
+                    />
+                </Scene>
+                {/*// rightTitle=''
+                // onRight={() => {
+                //     BleManager.stopScan()
+                //     .then(() => {
+                //         // Actions.drawer();
+                //         Actions.name();
+                //     });
+                // }}
+                // rightButtonTextStyle={barButtonTextStyle}
+                <Scene
                     key='drawer'
                     component={LeftNavigationDrawer}
                     open={false}

@@ -87,7 +87,7 @@ export const loginUser = ({ emailAddress, password, type }) => {
 
                 if (emailVerified) {
                     AsyncStorage.multiGet(
-                        ['@email', '@uid', '@lastLogin', '@regStatus']
+                        ['@email', '@uid', '@lastLogin', '@regComplete', '@type']
                     )
                         .then(values => {
                             if (values[0][2] === 'yes') {
@@ -110,6 +110,7 @@ export const loginUser = ({ emailAddress, password, type }) => {
                                 typeString = `reg-${type}`;
                                 AsyncStorage.multiSet([
                                     ['@regComplete', 'no'],
+                                    ['@type', type]
                                 ])
                                     .then(() => {
                                         return loginUserSuccess(dispatch, userDetails, typeString);
