@@ -1,59 +1,60 @@
 {
-	"name": "caterr",
-	"version": "0.0.1",
-	"private": false,
-	"description": "A mobile application for event-staffing management.",
-	"scripts": {
-		"server": "node server.js",
-		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"ios": "open ios/caterr.xcodeproj/project.xcworkspace",
-		"test": "jest"
-	},
-	"rnpm": {
-		"assets": [
-			"./assets/fonts"
-		]
-	},
-	"repository": {
-	"type": "git",
-		"url": "https://github.com/osledrobilka/caterr"
-	},
-	"author": "Ben Young (ben@jbenjaminy.com)",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/osledrobilka/caterr/issues"
-	},
-	"homepage": "https://github.com/osledrobilka/caterr",
-	"dependencies": {
-		"apsl-react-native-button": "^3.0.2",
-		"calendar": "^0.1.0",
-		"firebase": "^3.6.9",
-		"lodash": "^4.17.4",
-		"react": "15.4.2",
-		"react-native": "0.40.0",
-		"react-native-blur": "^3.0.0-alpha",
-		"react-native-drawer": "^2.3.0",
-		"react-native-pulse": "^1.0.4",
-		"react-native-push-notification": "^2.2.1",
-    	"react-native-router-flux": "3.38.0",
-		"react-native-slider": "^0.9.1",
-		"react-native-vector-icons": "^4.0.0",
-		"react-redux": "^5.0.2",
-		"redux": "^3.6.0",
-		"redux-thunk": "^2.2.0",
-		"uuid": "3.0.1"
-	},
-	"devDependencies": {
-		"babel-jest": "18.0.0",
-		"babel-preset-react-native": "1.9.1",
-		"babel-plugin-transform-object-rest-spread": "^6.20.2",
-		"eslint": "^3.8.1",
-		"eslint-config-rallycoding": "^3.2.0",
-		"invariant": "^2.2.2",
-		"jest": "18.1.0",
-		"react-test-renderer": "15.4.2"
-	},
-	"jest": {
-		"preset": "react-native"
-	}
+  "name": "caterr",
+  "version": "0.0.1",
+  "private": false,
+  "description": "A mobile application for event-staffing management.",
+  "scripts": {
+    "server": "node server.js",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "ios": "open ios/caterr.xcodeproj/project.xcworkspace",
+    "test": "jest"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/osledrobilka/caterr"
+  },
+  "author": "Ben Young (ben@jbenjaminy.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/osledrobilka/caterr/issues"
+  },
+  "homepage": "https://github.com/osledrobilka/caterr",
+  "dependencies": {
+    "apsl-react-native-button": "^3.0.2",
+    "calendar": "^0.1.0",
+    "firebase": "^3.6.9",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "react": "15.4.2",
+    "react-native": "0.40.0",
+    "react-native-blur": "^3.0.0-alpha",
+    "react-native-drawer": "^2.3.0",
+    "react-native-pulse": "^1.0.4",
+    "react-native-push-notification": "^2.2.1",
+    "react-native-router-flux": "3.38.0",
+    "react-native-slider": "^0.9.1",
+    "react-native-vector-icons": "^4.0.0",
+    "react-redux": "^5.0.2",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
+    "uuid": "3.0.1"
+  },
+  "devDependencies": {
+    "babel-jest": "18.0.0",
+    "babel-preset-react-native": "1.9.1",
+    "babel-plugin-transform-object-rest-spread": "^6.20.2",
+    "eslint": "^3.8.1",
+    "eslint-config-rallycoding": "^3.2.0",
+    "invariant": "^2.2.2",
+    "jest": "18.1.0",
+    "react-test-renderer": "15.4.2"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
 }

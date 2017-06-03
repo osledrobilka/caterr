@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text } from 'react-native';
-// import { View, Text, Image, AsyncStorage } from 'react-native';
-// import { Actions } from 'react-native-router-flux';
+// import { View, Text } from 'react-native';
+import { View, Text, Image, AsyncStorage } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import * as actions from '../actions';
 import { CustomButton, Input, Spinner, Card, TitleButton } from './common';
 
@@ -463,4 +463,4 @@ class AuthPage extends Component {
 export default connect(({ auth }) => {
     const { email, password, loading, login, register, forgotPassword } = auth;
     return { email, password, loading, login, register, forgotPassword };
-}, actions)(LoginForm);
+}, actions)(AuthPage);
