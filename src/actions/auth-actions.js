@@ -46,9 +46,9 @@ export const resetSuccess = (message) => ({
     data: message
 });
 
-export const updateUser = (user) => ({
+export const updateUser = (data) => ({
     type: UPDATE_USER,
-    data: user
+    data
 });
 
 export const passwordReset = (email) => {
@@ -108,10 +108,7 @@ export const loginUser = ({ emailAddress, password, type }) => {
                                 }
                             } else {
                                 typeString = `reg-${type}`;
-                                AsyncStorage.multiSet([
-                                    ['@regComplete', 'no'],
-                                    ['@type', type]
-                                ])
+                                AsyncStorage.set('@regComplete', 'no')
                                     .then(() => {
                                         return loginUserSuccess(dispatch, userDetails, typeString);
                                     });
@@ -146,12 +143,13 @@ export const loginUser = ({ emailAddress, password, type }) => {
      };
  };
 
-export const registerUser = ({ emailAddress, password }) => {
+export const createUser = ({ emailAddress, password, type }) => {
     return (dispatch) => {
         firebase.auth().createUserWithEmailAndPassword(emailAddress, password)
             .then(() => {
                 const { currentUser } = firebase.auth();
 
+                AsyncStorage.set('@type', type);
                 currentUser.sendEmailVerification()
                     .then(() => {
                         // CASE: account created & verification email sent successfully.

@@ -1,13 +1,39 @@
 /* eslint no-underscore-dangle: 0 */
+/* eslint camelcase: 0 */
 import React, { Component } from 'react';
-import { View, Text, Image, AsyncStorage } from 'react-native';
+import { View, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
 import moment from 'moment';
 
 import * as actions from '../actions';
-import { CustomButton, Input, Spinner, Card, TitleButton } from './common';
+import { CustomButton, Input, Spinner, Card, Colors, AuthPageStyles } from './common';
+
+const {
+    customWhite,
+    // customBeige,
+    // customGrey_exLight,
+    customGrey_light,
+    // customGrey_med,
+    customGrey_dark,
+    customBlue
+} = Colors;
+
+const {
+    buttonStyle1,
+    buttonStyle2,
+    buttonStyle3,
+    cardStyle,
+    inputStyle,
+    sectionStyleCard,
+    textStyleButton1,
+    textStyleButton2,
+    viewStyle,
+    viewStyleButton,
+    viewStyleInput,
+    viewStyleStart
+} = AuthPageStyles;
 
 class AuthPage extends Component {
     componentWillMount() {
@@ -35,22 +61,26 @@ class AuthPage extends Component {
                         const details = {
                             email,
                             uid,
-                            lastLogin
+                            lastLogin,
+                            regComplete
                         };
                         console.log('details --> ', details);
+                        updateUser({ type, details });
 
-                        if (regComplete) {
-                            if (type === 'host') {
-
+                        if (type === 'host') {
+                            if (regComplete) {
+                                Actions.mainHost();
                             } else {
-
+                                Actions.createHost();
                             }
-                        } else {
-                            if (type === 'host') {
-
+                        } else if (type === 'staff') {
+                            if (regComplete) {
+                                Actions.mainStaff();
                             } else {
-
+                                Actions.createStaff();
                             }
+                        } else if (type === 'admin') {
+                            Actions.mainAdmin();
                         }
                     }
                 }
@@ -58,40 +88,26 @@ class AuthPage extends Component {
         this.focused = false;
     }
 
-    /**
-     *  Helper function for updating the string stored as application state,
-        associated with our email input.
-     */
     onEmailChange(text) {
         this.props.emailChanged(text);
     }
 
-    /**
-     *  Helper function for updating the string stored as application state,
-        associated with our password input.
-     */
     onPasswordChange(text) {
         this.props.passwordChanged(text);
     }
 
-    /**
-     *  Helper function used to create an action to initiate an authentication
-        request to firebase on the onPress event of our login page button.
-     */
-    onSubmit(action) {
+    onSubmit({ action, type }) {
         const {
             email,
             password,
             loginUser,
-            registerUser,
+            createUser,
             loginError,
             loginUserStart,
             passwordReset
         } = this.props;
+
         const validateEmail = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
-        // test@test.example use for testing purposes
-        // /.@./ ONLY REAL VALIDATION YOU CAN DO FOR AN EMAIL
-        // TODO REMOVE EMAIL VALIDATION CODE
         const EMAIL = email.trim();
         const PASSWORD = password.trim();
         let error = '';
@@ -116,9 +132,9 @@ class AuthPage extends Component {
             loginError(error);
         } else if (EMAIL && PASSWORD) {
             if (action === 'register') {
-                registerUser({ emailAddress: EMAIL, password: PASSWORD });
+                createUser({ emailAddress: EMAIL, password: PASSWORD, type });
             } else {
-                loginUser({ emailAddress: EMAIL, password: PASSWORD });
+                loginUser({ emailAddress: EMAIL, password: PASSWORD, type });
             }
         }
     }
@@ -127,36 +143,8 @@ class AuthPage extends Component {
         this.focused = true;
     }
 
-    openSupportUrl() {
-        Linking.openURL('http://elliegrid.com/contact')
-            .catch(err => console.log('Redirect error.', err));
-    }
-
     renderInputs() {
         const { register, login, forgotPassword, email, password } = this.props;
-        // TODO: populate input with storedEmail
-        // let userEmail = null;
-        // AsyncStorage.getItem('@email')
-        //     .then(storedEmail => {
-        //         console.log('storedEmail --> ', storedEmail);
-        //         if (storedEmail !== null) {
-        //             userEmail = storedEmail;
-        //         }
-        //     });
-
-        const {
-            cardStyle,
-            sectionStyleCard,
-            inputStyle,
-            viewStyleInput,
-            viewStyleStart
-        } = styles;
-        const placeholderTextColor = '#A3AFB6';
-        const autoCapitalize = 'none';
-        const startIconSize = 20;
-        const startIconColor = '#EFF6FD';
-        const returnKey = 'done';
-        const selectionColor = '#FFFFFF';
 
         if (register || login) {
             return (
@@ -165,14 +153,14 @@ class AuthPage extends Component {
                         value={email}
                         onChangeText={this.onEmailChange.bind(this)}
                         placeholder={'Email'}
-                        placeholderTextColor={placeholderTextColor}
-                        autoCapitalize={autoCapitalize}
+                        placeholderTextColor={customGrey_light}
+                        autoCapitalize={'none'}
                         startIconName={'envelope'}
-                        startIconSize={startIconSize}
-                        startIconColor={startIconColor}
+                        startIconSize={20}
+                        startIconColor={customGrey_dark}
                         keyboardType={'email-address'}
-                        selectionColor={selectionColor}
-                        returnKey={returnKey}
+                        selectionColor={customWhite}
+                        returnKey={'done'}
                         customInputStyle={inputStyle}
                         customViewStyle={viewStyleInput}
                         customCardSectionStyle={sectionStyleCard}
@@ -184,14 +172,14 @@ class AuthPage extends Component {
                         value={password}
                         onChangeText={this.onPasswordChange.bind(this)}
                         placeholder={'Password'}
-                        placeholderTextColor={placeholderTextColor}
-                        autoCapitalize={autoCapitalize}
+                        placeholderTextColor={customGrey_light}
+                        autoCapitalize={'none'}
                         startIconName={'key'}
-                        startIconSize={startIconSize}
-                        startIconColor={startIconColor}
+                        startIconSize={20}
+                        startIconColor={customGrey_dark}
                         keyboardType={'email-address'}
-                        selectionColor={selectionColor}
-                        returnKey={returnKey}
+                        selectionColor={customWhite}
+                        returnKey={'done'}
                         secureTextEntry={'true'}
                         customInputStyle={inputStyle}
                         customViewStyle={viewStyleInput}
@@ -208,14 +196,14 @@ class AuthPage extends Component {
                         value={email}
                         onChangeText={this.onEmailChange.bind(this)}
                         placeholder={'Email'}
-                        placeholderTextColor={placeholderTextColor}
-                        autoCapitalize={autoCapitalize}
+                        placeholderTextColor={customGrey_light}
+                        autoCapitalize={'none'}
                         startIconName={'envelope'}
-                        startIconSize={startIconSize}
-                        startIconColor={startIconColor}
+                        startIconSize={20}
+                        startIconColor={customGrey_dark}
                         keyboardType={'email-address'}
-                        selectionColor={selectionColor}
-                        returnKey={returnKey}
+                        selectionColor={customWhite}
+                        returnKey={'done'}
                         customInputStyle={inputStyle}
                         customViewStyle={viewStyleInput}
                         customCardSectionStyle={sectionStyleCard}
@@ -237,24 +225,12 @@ class AuthPage extends Component {
             manageAuth,
             login,
             register,
+            type,
             forgotPassword
         } = this.props;
-        const {
-            viewStyleButton,
-            buttonStyle1,
-            buttonStyle2,
-            buttonStyle3,
-            textStyleButton1,
-            textStyleButton2
-        } = styles;
-        const { blue } = Colors;
+
         let disabledBool = false;
         let disabledBool2 = false;
-
-        /**
-         *  Conditional for determining if the spinner component should be
-            rendered, while the authentication request takes place.
-         */
 
         if (email === '' || password === '') {
             disabledBool = true;
@@ -268,27 +244,71 @@ class AuthPage extends Component {
             return <Spinner />;
         }
 
-        /**
-         *  Default button component to be rendered below our email & password
-            inputs, when no authentication request is taking place.
-         */
-        if (login) {
+        if (register && (type === '')) {
             return (
                 <View style={viewStyleButton}>
                     <CustomButton
-                        onPress={this.onSubmit.bind(this, 'login')}
+                        onPress={() => manageAuth({
+                            prop: 'type',
+                            value: 'host'
+                        })}
+                        customTextStyle={textStyleButton1}
+                        customStyle={buttonStyle1}
+                        disabled={false}
+                        spinnerColor={customBlue}
+                    >
+                        I want Caterr to staff my next event.
+                    </CustomButton>
+                    <CustomButton
+                        onPress={() => manageAuth({
+                            prop: 'type',
+                            value: 'staff'
+                        })}
+                        customTextStyle={textStyleButton1}
+                        customStyle={buttonStyle1}
+                        disabled={false}
+                        spinnerColor={customBlue}
+                    >
+                        I want to join Caterr's team.
+                    </CustomButton>
+                    <CustomButton
+                        onPress={() => {
+                            manageAuth({ prop: 'type', value: '' });
+                            manageAuth({ prop: 'login', value: true });
+                        }}
+                        customTextStyle={textStyleButton2}
+                        customStyle={buttonStyle2}
+                    >
+                        Already have an account?
+                        Login instead.
+                    </CustomButton>
+                    <CustomButton
+                        onPress={() => console.log('contact support')}
+                        customTextStyle={textStyleButton2}
+                        customStyle={buttonStyle3}
+                    >
+                        Need help?
+                        Contact Caterr's support team.
+                    </CustomButton>
+                </View>
+            );
+        } else if (login && (type !== '')) {
+            return (
+                <View style={viewStyleButton}>
+                    <CustomButton
+                        onPress={this.onSubmit.bind(this, { action: 'login', type })}
                         customTextStyle={textStyleButton1}
                         customStyle={buttonStyle1}
                         disabled={disabledBool}
-                        spinnerColor={blue}
+                        spinnerColor={customBlue}
                     >
                         Log In
                     </CustomButton>
                     <CustomButton
-                        onPress={() => manageAuth({
-                            prop: 'register',
-                            value: true
-                        })}
+                        onPress={() => {
+                            manageAuth({ prop: 'type', value: '' });
+                            manageAuth({ prop: 'register', value: true });
+                        }}
                         customTextStyle={textStyleButton2}
                         customStyle={buttonStyle2}
                     >
@@ -307,7 +327,7 @@ class AuthPage extends Component {
                         Reset your password.
                     </CustomButton>
                     <CustomButton
-                        onPress={this.openSupportUrl}
+                        onPress={() => console.log('contact support')}
                         customTextStyle={textStyleButton2}
                         customStyle={buttonStyle3}
                     >
@@ -316,23 +336,23 @@ class AuthPage extends Component {
                     </CustomButton>
                 </View>
             );
-        } else if (register) {
+        } else if (register && (type !== '')) {
             return (
                 <View style={viewStyleButton}>
                     <CustomButton
-                        onPress={this.onSubmit.bind(this, 'register')}
+                        onPress={this.onSubmit.bind(this, { action: 'register', type })}
                         customTextStyle={textStyleButton1}
                         customStyle={buttonStyle1}
                         disabled={disabledBool}
-                        spinnerColor={blue}
+                        spinnerColor={customBlue}
                     >
                         Sign Up
                     </CustomButton>
                     <CustomButton
-                        onPress={() => manageAuth({
-                            prop: 'login',
-                            value: true
-                        })}
+                        onPress={() => {
+                            manageAuth({ prop: 'type', value: '' });
+                            manageAuth({ prop: 'login', value: true });
+                        }}
                         customTextStyle={textStyleButton2}
                         customStyle={buttonStyle2}
                     >
@@ -340,18 +360,7 @@ class AuthPage extends Component {
                         Login instead.
                     </CustomButton>
                     <CustomButton
-                        onPress={() => manageAuth({
-                            prop: 'forgotPassword',
-                            value: true
-                        })}
-                        customTextStyle={textStyleButton2}
-                        customStyle={buttonStyle3}
-                    >
-                        Trouble logging in?
-                        Reset your password.
-                    </CustomButton>
-                    <CustomButton
-                        onPress={this.openSupportUrl}
+                        onPress={() => console.log('contact support')}
                         customTextStyle={textStyleButton2}
                         customStyle={buttonStyle3}
                     >
@@ -368,25 +377,25 @@ class AuthPage extends Component {
                         customTextStyle={textStyleButton1}
                         customStyle={buttonStyle1}
                         disabled={disabledBool2}
-                        spinnerColor={blue}
+                        spinnerColor={customBlue}
                     >
                         Send Password Reset Email
                     </CustomButton>
                     <CustomButton
-                        onPress={() => manageAuth({
-                            prop: 'login',
-                            value: true
-                        })}
+                        onPress={() => {
+                            manageAuth({ prop: 'type', value: '' });
+                            manageAuth({ prop: 'login', value: true });
+                        }}
                         customTextStyle={textStyleButton2}
                         customStyle={buttonStyle2}
                     >
                         Return to login.
                     </CustomButton>
                     <CustomButton
-                        onPress={() => manageAuth({
-                            prop: 'register',
-                            value: true
-                        })}
+                        onPress={() => {
+                            manageAuth({ prop: 'type', value: '' });
+                            manageAuth({ prop: 'register', value: true });
+                        }}
                         customTextStyle={textStyleButton2}
                         customStyle={buttonStyle3}
                     >
@@ -394,7 +403,7 @@ class AuthPage extends Component {
                         Create one here.
                     </CustomButton>
                     <CustomButton
-                        onPress={this.openSupportUrl}
+                        onPress={() => console.log('contact support')}
                         customTextStyle={textStyleButton2}
                         customStyle={buttonStyle3}
                     >
@@ -407,26 +416,37 @@ class AuthPage extends Component {
         return (
             <View style={viewStyleButton}>
                 <CustomButton
+                    onPress={() => {
+                        manageAuth({ prop: 'type', value: 'host' });
+                        manageAuth({ prop: 'login', value: true });
+                    }}
+                    customTextStyle={textStyleButton1}
+                    customStyle={buttonStyle1}
+                    spinnerColor={customBlue}
+                >
+                    Host Log In
+                </CustomButton>
+                <CustomButton
+                    onPress={() => {
+                        manageAuth({ prop: 'type', value: 'staff' });
+                        manageAuth({ prop: 'login', value: true });
+                    }}
+                    customTextStyle={textStyleButton1}
+                    customStyle={buttonStyle1}
+                    spinnerColor={customBlue}
+                >
+                    Staff Log In
+                </CustomButton>
+                <CustomButton
                     onPress={() => manageAuth({
                         prop: 'register',
                         value: true
                     })}
                     customTextStyle={textStyleButton1}
                     customStyle={buttonStyle1}
-                    spinnerColor={blue}
+                    spinnerColor={customBlue}
                 >
-                    Sign Up
-                </CustomButton>
-                <CustomButton
-                    onPress={() => manageAuth({
-                        prop: 'login',
-                        value: true
-                    })}
-                    customTextStyle={textStyleButton1}
-                    customStyle={buttonStyle1}
-                    spinnerColor={blue}
-                >
-                    Log In
+                    Create a Free Account
                 </CustomButton>
                 <CustomButton
                     onPress={() => manageAuth({
@@ -452,24 +472,10 @@ class AuthPage extends Component {
     }
 
     render() {
-        const {
-            viewStyle,
-            imageStyle,
-            viewStyleImage,
-            titleStyle
-        } = styles;
-
         return (
             <View style={viewStyle}>
-                <Text style={titleStyle}>Hello!</Text>
-                <View style={viewStyleImage}>
-                    <Image
-                        style={imageStyle}
-                        source={elliegridLogo}
-                    />
-                </View>
-                    {this.renderInputs()}
-                    {this.renderButton()}
+                {this.renderInputs()}
+                {this.renderButton()}
             </View>
         );
     }

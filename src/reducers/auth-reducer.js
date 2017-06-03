@@ -65,7 +65,12 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, ...INITIAL_STATE, error: action.data, login: true };
         }
         case UPDATE_USER:
-            return { ...state, ...INITIAL_STATE, userDetails: action.data };
+            return {
+                ...state,
+                ...INITIAL_STATE,
+                type: action.data.type,
+                userDetails: action.data.details
+            };
         default:
             return state;
     }

@@ -11,6 +11,7 @@ import Colors from './components/common';
 
 const {
     // customBeige,
+    // customGrey_exLight,
     // customGrey_light,
     // customGrey_med,
     customGrey_dark,
