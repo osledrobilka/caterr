@@ -1,3 +1,4 @@
+import { AlertIOS } from 'react-native';
 import {
     EMAIL_CHANGED,
     PASSWORD_CHANGED,
@@ -6,23 +7,24 @@ import {
     LOGIN_USER_START,
     LOGIN_ERROR,
     LOGOUT_USER_SUCCESS,
-    LOGOUT_USER_FAIL
+    LOGOUT_USER_FAIL,
+    RESET_PASSWORD_SUCCESS,
+    MANAGE_AUTH,
+    RESET_SUCCESS,
+    UPDATE_USER
 } from '../actions/types';
 
 const INITIAL_STATE = {
+    type: '',
     email: '',
     password: '',
-    error: ' ',
+    error: '',
     message: '',
-    user: {
-        // uid: 'ghTdd3XxmeSVxmAU2bHFdXM3yaH2'
-    },
-    userDetails: {
-        name: '',
-        email: '',
-        profileImageUrl: ''
-    },
-    loading: null
+    userDetails: null,
+    loading: null,
+    forgotPassword: false,
+    login: false,
+    register: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -34,24 +36,36 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN_USER_START:
             return { ...state, loading: true, error: '', message: '' };
         case LOGIN_USER_SUCCESS:
-            return {
-                ...state,
-                ...INITIAL_STATE,
-                user: action.data.user,
-                userDetails: {
-                    name: action.data.authData.name,
-                    email: action.data.authData.email,
-                    profileImageUrl: action.data.authData.profileImageUrl
-                }
+            return { ...state, ...INITIAL_STATE, userDetails: action.data
             };
-        case LOGIN_USER_FAIL:
+        case LOGIN_USER_FAIL: {
+            AlertIOS.alert(action.data);
+
             return { ...state, ...INITIAL_STATE, error: action.data };
-        case LOGIN_ERROR:
+        }
+        case LOGIN_ERROR: {
+            AlertIOS.alert(action.data);
+
             return { ...state, ...INITIAL_STATE, error: action.data };
+        }
         case LOGOUT_USER_SUCCESS:
             return { ...state, ...INITIAL_STATE, message: action.data };
         case LOGOUT_USER_FAIL:
             return { ...state, error: action.data };
+        case MANAGE_AUTH:
+            return { ...state, ...INITIAL_STATE, [action.data.prop]: action.data.value };
+        case RESET_PASSWORD_SUCCESS: {
+            AlertIOS.alert(action.data);
+
+            return { ...state, ...INITIAL_STATE, error: action.data, login: true };
+        }
+        case RESET_SUCCESS: {
+            AlertIOS.alert(action.data);
+
+            return { ...state, ...INITIAL_STATE, error: action.data, login: true };
+        }
+        case UPDATE_USER:
+            return { ...state, ...INITIAL_STATE, userDetails: action.data };
         default:
             return state;
     }

@@ -31,7 +31,7 @@ const RouterComponent = () => {
                         component={AuthPage}
                         titleStyle={[navBarTitleStyle, { color: '#f8f8f8' }]}
                         navigationBarStyle={{ backgroundColor: '#636363' }}
-                        title=''
+                        title='Caterr'
                         sceneStyle={{ paddingTop: 60 }}
                     />
                 </Scene>
