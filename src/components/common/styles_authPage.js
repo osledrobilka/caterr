@@ -11,28 +11,37 @@ const {
 } = Colors;
 
 export const AuthPageStyles = {
+    titleStyle: {
+        fontFamily: 'Inconsolata-Regular',
+        fontSize: 70,
+        letterSpacing: 8,
+        textAlign: 'center',
+        marginTop: 50,
+        color: customBlue
+    },
     buttonStyle1: {
         backgroundColor: customWhite,
         borderColor: customWhite
     },
     buttonStyle2: {
         backgroundColor: customGreyDark,
-        borderColor: customBlue,
+        borderColor: customGreyDark,
         marginBottom: 5,
         marginTop: 20,
         height: 15
     },
     buttonStyle3: {
         backgroundColor: customGreyDark,
-        borderColor: customBlue,
+        borderColor: customGreyDark,
         marginTop: 5,
         marginBottom: 5,
         height: 15
     },
     cardStyle: {
         backgroundColor: customGreyDark,
-        borderColor: customBlue,
-        shadowColor: customBlue,
+        borderColor: customGreyDark,
+        shadowColor: customGreyDark,
+        marginTop: 50
     },
     inputStyle: {
         backgroundColor: customGreyDark,
@@ -43,15 +52,15 @@ export const AuthPageStyles = {
     },
     sectionStyleCard: {
         backgroundColor: customGreyDark,
-        borderColor: customBlue,
+        borderColor: customGreyDark,
         marginTop: -10
     },
     textStyleButton1: {
         color: customBlue
     },
     textStyleButton2: {
-        color: customWhite,
-        fontSize: 13
+        color: customBeige,
+        fontSize: 13,
     },
     viewStyle: {
         backgroundColor: customGreyDark,

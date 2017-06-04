@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import * as actions from '../../actions';
 import { Card, CustomButton, Input } from '../common';
@@ -99,6 +99,7 @@ class CreateStaffForm extends Component {
 
         return (
             <View style={viewStyle}>
+                <ScrollView contentContainerStyle={{ flex: 0, paddingBottom: 150 }}>
                 <Card style={cardStyle}>
                     <Input
                         value={firstName}
@@ -245,6 +246,7 @@ class CreateStaffForm extends Component {
                         autoFocus={'true'}
                     />
                 </Card>
+                </ScrollView>
                 <View style={buttonViewStyle}>
                     <Card style={cardStyle2}>
                         <CustomButton onPress={this.createStaff.bind(this)}>
@@ -268,8 +270,10 @@ const styles = {
         alignSelf: 'center',
         justifyContent: 'flex-start',
         position: 'absolute',
-        bottom: 60,
-        flexDirection: 'row'
+        bottom: 0,
+        paddingBottom: 60,
+        flexDirection: 'row',
+        backgroundColor: '#F1F1F1'
     },
     viewStyle: {
         backgroundColor: '#F1F1F1',

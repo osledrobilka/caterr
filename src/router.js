@@ -29,7 +29,7 @@ const RouterComponent = () => {
                     <Scene
                         key='auth'
                         component={AuthPage}
-                        title='Caterr'
+                        title=''
                     />
                 </Scene>
                 <Scene key='mainAdmin'>

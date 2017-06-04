@@ -74,7 +74,7 @@ export const loginUser = ({ emailAddress, password, type }) => {
     return (dispatch) => {
         firebase.auth().signInWithEmailAndPassword(emailAddress, password)
             .then(() => {
-                let typeString = `login-${type}`;
+                const typeString = `reg-${type}`;
                 const currentUser = firebase.auth().currentUser;
                 console.log('currentUser --> ', currentUser);
                 const lastLogin = new Date();
@@ -86,37 +86,38 @@ export const loginUser = ({ emailAddress, password, type }) => {
                 };
 
                 if (emailVerified) {
-                    AsyncStorage.multiGet(
-                        ['@email', '@uid', '@lastLogin', '@regComplete', '@type']
-                    )
-                        .then(values => {
-                            if (values[0][2] === 'yes') {
-                                if ((values[0][1] !== null) && (values[1][1] !== null)) {
-                                AsyncStorage.setItem('@lastLogin', JSON.stringify(lastLogin))
-                                    .then(() => {
-                                        return loginUserSuccess(dispatch, userDetails, typeString);
-                                    });
-                                } else {
-                                    AsyncStorage.multiSet([
-                                        ['@email', email],
-                                        ['@uid', uid],
-                                        ['@lastLogin', JSON.stringify(lastLogin)],
-                                    ])
-                                    .then(() => {
-                                        return loginUserSuccess(dispatch, userDetails, typeString);
-                                    });
-                                }
-                            } else {
-                                typeString = `reg-${type}`;
-                                AsyncStorage.set('@regComplete', 'no')
-                                    .then(() => {
-                                        return loginUserSuccess(dispatch, userDetails, typeString);
-                                    });
-                            }
-                        })
-                        .catch(() => {
-                            return loginUserSuccess(dispatch, userDetails, typeString);
-                        });
+                    // AsyncStorage.multiGet(
+                    //     ['@email', '@uid', '@lastLogin', '@regComplete', '@type']
+                    // )
+                    //     .then(values => {
+                    //         if (values[0][4] === 'yes') {
+                    //             if ((values[0][1] !== null) && (values[1][1] !== null)) {
+                    //             AsyncStorage.setItem('@lastLogin', JSON.stringify(lastLogin))
+                    //                 .then(() => {
+                    //                     return loginUserSuccess(dispatch, userDetails, typeString);
+                    //                 });
+                    //             } else {
+                    //                 AsyncStorage.multiSet([
+                    //                     ['@email', email],
+                    //                     ['@uid', uid],
+                    //                     ['@lastLogin', JSON.stringify(lastLogin)],
+                    //                 ])
+                    //                 .then(() => {
+                    //                     return loginUserSuccess(dispatch, userDetails, typeString);
+                    //                 });
+                    //             }
+                    //         } else {
+                    //             typeString = `reg-${type}`;
+                    //             AsyncStorage.set('@regComplete', 'no')
+                    //                 .then(() => {
+                    //                     return loginUserSuccess(dispatch, userDetails, typeString);
+                    //                 });
+                    //         }
+                    //     })
+                    //     .catch(() => {
+                    //         return loginUserSuccess(dispatch, userDetails, typeString);
+                    //     });
+                    loginUserSuccess(dispatch, userDetails, typeString);
                 } else {
                     // CASE: auth successful, but account not yet verified.
                     currentUser.sendEmailVerification()
@@ -149,7 +150,6 @@ export const createUser = ({ emailAddress, password, type }) => {
             .then(() => {
                 const { currentUser } = firebase.auth();
 
-                AsyncStorage.set('@type', type);
                 currentUser.sendEmailVerification()
                     .then(() => {
                         // CASE: account created & verification email sent successfully.
@@ -157,6 +157,7 @@ export const createUser = ({ emailAddress, password, type }) => {
                             dispatch,
                             'Thanks for signing up, we just sent you a verification email!'
                         );
+                        AsyncStorage.setItem('@type', type);
                     })
                     .catch(error => {
                         // CASE: account was created but there was an error
@@ -167,6 +168,7 @@ export const createUser = ({ emailAddress, password, type }) => {
                             dispatch,
                             'Account created successfully. Please log in to verify your account.'
                         );
+                        AsyncStorage.set('@type', type);
                     });
             })
             .catch(error => {
@@ -209,6 +211,7 @@ export const logoutUser = () => {
 };
 
 const loginUserSuccess = (dispatch, data, type) => {
+    console.log('here', type);
     dispatch({
         type: LOGIN_USER_SUCCESS,
         data

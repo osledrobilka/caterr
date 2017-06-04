@@ -15,16 +15,20 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-    type: '',
+    accountType: '',
     email: '',
     password: '',
     error: '',
     message: '',
     userDetails: null,
     loading: null,
-    forgotPassword: false,
-    login: false,
-    register: false
+    reg: false,
+    loginHost: false,
+    loginStaff: false,
+    regHost: false,
+    regStaff: false,
+    forgotPassword: false
+
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -68,7 +72,7 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 ...INITIAL_STATE,
-                type: action.data.type,
+                type: action.data.accountType,
                 userDetails: action.data.details
             };
         default:

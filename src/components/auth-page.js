@@ -1,7 +1,7 @@
 /* eslint no-underscore-dangle: 0 */
 /* eslint camelcase: 0 */
 import React, { Component } from 'react';
-import { View, AsyncStorage } from 'react-native';
+import { View, AsyncStorage, Text } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
@@ -71,7 +71,7 @@ class AuthPage extends Component {
         this.props.passwordChanged(text);
     }
 
-    onSubmit({ action, type }) {
+    onSubmit({ action, accountType }) {
         const {
             email,
             password,
@@ -107,9 +107,9 @@ class AuthPage extends Component {
             loginError(error);
         } else if (EMAIL && PASSWORD) {
             if (action === 'register') {
-                createUser({ emailAddress: EMAIL, password: PASSWORD, type });
+                createUser({ emailAddress: EMAIL, password: PASSWORD, type: accountType });
             } else {
-                loginUser({ emailAddress: EMAIL, password: PASSWORD, type });
+                loginUser({ emailAddress: EMAIL, password: PASSWORD, type: accountType });
             }
         }
     }
@@ -119,8 +119,16 @@ class AuthPage extends Component {
     }
 
     renderInputs() {
-        const { register, login, forgotPassword, email, password } = this.props;
-        const { customGrey_light, customGrey_dark, customWhite } = Colors;
+        const {
+            forgotPassword,
+            email,
+            password,
+            regHost,
+            regStaff,
+            loginHost,
+            loginStaff
+        } = this.props;
+        const { customGreyLight, customBlue, customWhite } = Colors;
         const {
             cardStyle,
             inputStyle,
@@ -129,20 +137,20 @@ class AuthPage extends Component {
             viewStyleStart
         } = AuthPageStyles;
 
-        if (register || login) {
+        if ((regHost) || (regStaff) || (loginHost) || (loginStaff)) {
             return (
                 <Card style={cardStyle}>
                     <Input
                         value={email}
                         onChangeText={this.onEmailChange.bind(this)}
                         placeholder={'Email'}
-                        placeholderTextColor={customGrey_light}
+                        placeholderTextColor={customGreyLight}
                         autoCapitalize={'none'}
                         startIconName={'envelope'}
                         startIconSize={20}
-                        startIconColor={customGrey_dark}
+                        startIconColor={customWhite}
                         keyboardType={'email-address'}
-                        selectionColor={customWhite}
+                        selectionColor={customBlue}
                         returnKey={'done'}
                         customInputStyle={inputStyle}
                         customViewStyle={viewStyleInput}
@@ -155,13 +163,13 @@ class AuthPage extends Component {
                         value={password}
                         onChangeText={this.onPasswordChange.bind(this)}
                         placeholder={'Password'}
-                        placeholderTextColor={customGrey_light}
+                        placeholderTextColor={customGreyLight}
                         autoCapitalize={'none'}
                         startIconName={'key'}
                         startIconSize={20}
-                        startIconColor={customGrey_dark}
+                        startIconColor={customWhite}
                         keyboardType={'email-address'}
-                        selectionColor={customWhite}
+                        selectionColor={customBlue}
                         returnKey={'done'}
                         secureTextEntry={'true'}
                         customInputStyle={inputStyle}
@@ -179,13 +187,13 @@ class AuthPage extends Component {
                         value={email}
                         onChangeText={this.onEmailChange.bind(this)}
                         placeholder={'Email'}
-                        placeholderTextColor={customGrey_light}
+                        placeholderTextColor={customGreyLight}
                         autoCapitalize={'none'}
                         startIconName={'envelope'}
                         startIconSize={20}
-                        startIconColor={customGrey_dark}
+                        startIconColor={customWhite}
                         keyboardType={'email-address'}
-                        selectionColor={customWhite}
+                        selectionColor={customBlue}
                         returnKey={'done'}
                         customInputStyle={inputStyle}
                         customViewStyle={viewStyleInput}
@@ -206,9 +214,11 @@ class AuthPage extends Component {
             email,
             password,
             manageAuth,
-            login,
-            register,
-            type,
+            reg,
+            regHost,
+            regStaff,
+            loginHost,
+            loginStaff,
             forgotPassword
         } = this.props;
         const {
@@ -238,25 +248,25 @@ class AuthPage extends Component {
             return <Spinner />;
         }
 
-        if (register && (type === '')) {
+        if (reg) {
             return (
                 <View style={viewStyleButton}>
                     <CustomButton
                         onPress={() => manageAuth({
-                            prop: 'type',
-                            value: 'host'
+                            prop: 'regHost',
+                            value: true
                         })}
                         customTextStyle={textStyleButton1}
                         customStyle={buttonStyle1}
                         disabled={false}
                         spinnerColor={customBlue}
                     >
-                        I want Caterr to staff my next event.
+                        I want Caterr to staff my events.
                     </CustomButton>
                     <CustomButton
                         onPress={() => manageAuth({
-                            prop: 'type',
-                            value: 'staff'
+                            prop: 'regStaff',
+                            value: true
                         })}
                         customTextStyle={textStyleButton1}
                         customStyle={buttonStyle1}
@@ -267,8 +277,7 @@ class AuthPage extends Component {
                     </CustomButton>
                     <CustomButton
                         onPress={() => {
-                            manageAuth({ prop: 'type', value: '' });
-                            manageAuth({ prop: 'login', value: true });
+                            manageAuth({ prop: 'reg', value: false });
                         }}
                         customTextStyle={textStyleButton2}
                         customStyle={buttonStyle2}
@@ -286,11 +295,11 @@ class AuthPage extends Component {
                     </CustomButton>
                 </View>
             );
-        } else if (login && (type !== '')) {
+        } else if (loginHost) {
             return (
                 <View style={viewStyleButton}>
                     <CustomButton
-                        onPress={this.onSubmit.bind(this, { action: 'login', type })}
+                        onPress={this.onSubmit.bind(this, { action: 'login', accountType: 'host' })}
                         customTextStyle={textStyleButton1}
                         customStyle={buttonStyle1}
                         disabled={disabledBool}
@@ -300,8 +309,7 @@ class AuthPage extends Component {
                     </CustomButton>
                     <CustomButton
                         onPress={() => {
-                            manageAuth({ prop: 'type', value: '' });
-                            manageAuth({ prop: 'register', value: true });
+                            manageAuth({ prop: 'reg', value: true });
                         }}
                         customTextStyle={textStyleButton2}
                         customStyle={buttonStyle2}
@@ -330,11 +338,60 @@ class AuthPage extends Component {
                     </CustomButton>
                 </View>
             );
-        } else if (register && (type !== '')) {
+        } else if (loginStaff) {
             return (
                 <View style={viewStyleButton}>
                     <CustomButton
-                        onPress={this.onSubmit.bind(this, { action: 'register', type })}
+                        onPress={this.onSubmit.bind(this, {
+                            action: 'login',
+                            accountType: 'staff'
+                        })}
+                        customTextStyle={textStyleButton1}
+                        customStyle={buttonStyle1}
+                        disabled={disabledBool}
+                        spinnerColor={customBlue}
+                    >
+                        Log In
+                    </CustomButton>
+                    <CustomButton
+                        onPress={() => {
+                            manageAuth({ prop: 'reg', value: true });
+                        }}
+                        customTextStyle={textStyleButton2}
+                        customStyle={buttonStyle2}
+                    >
+                        Need a new account?
+                        Create one here.
+                    </CustomButton>
+                    <CustomButton
+                        onPress={() => manageAuth({
+                            prop: 'forgotPassword',
+                            value: true
+                        })}
+                        customTextStyle={textStyleButton2}
+                        customStyle={buttonStyle3}
+                    >
+                        Trouble logging in?
+                        Reset your password.
+                    </CustomButton>
+                    <CustomButton
+                        onPress={() => console.log('contact support')}
+                        customTextStyle={textStyleButton2}
+                        customStyle={buttonStyle3}
+                    >
+                        Need help?
+                        Contact Caterr's support team.
+                    </CustomButton>
+                </View>
+            );
+        } else if (regStaff) {
+            return (
+                <View style={viewStyleButton}>
+                    <CustomButton
+                        onPress={this.onSubmit.bind(this, {
+                            action: 'register',
+                            accountType: 'staff'
+                        })}
                         customTextStyle={textStyleButton1}
                         customStyle={buttonStyle1}
                         disabled={disabledBool}
@@ -344,8 +401,42 @@ class AuthPage extends Component {
                     </CustomButton>
                     <CustomButton
                         onPress={() => {
-                            manageAuth({ prop: 'type', value: '' });
-                            manageAuth({ prop: 'login', value: true });
+                            manageAuth({ prop: 'regStaff', value: false });
+                        }}
+                        customTextStyle={textStyleButton2}
+                        customStyle={buttonStyle2}
+                    >
+                        Already have an account?
+                        Login instead.
+                    </CustomButton>
+                    <CustomButton
+                        onPress={() => console.log('contact support')}
+                        customTextStyle={textStyleButton2}
+                        customStyle={buttonStyle3}
+                    >
+                        Need help?
+                        Contact Caterr's support team.
+                    </CustomButton>
+                </View>
+            );
+        } else if (regHost) {
+            return (
+                <View style={viewStyleButton}>
+                    <CustomButton
+                        onPress={this.onSubmit.bind(this, {
+                            action: 'register',
+                            accountType: 'host'
+                        })}
+                        customTextStyle={textStyleButton1}
+                        customStyle={buttonStyle1}
+                        disabled={disabledBool}
+                        spinnerColor={customBlue}
+                    >
+                        Sign Up
+                    </CustomButton>
+                    <CustomButton
+                        onPress={() => {
+                            manageAuth({ prop: 'regHost', value: false });
                         }}
                         customTextStyle={textStyleButton2}
                         customStyle={buttonStyle2}
@@ -377,8 +468,7 @@ class AuthPage extends Component {
                     </CustomButton>
                     <CustomButton
                         onPress={() => {
-                            manageAuth({ prop: 'type', value: '' });
-                            manageAuth({ prop: 'login', value: true });
+                            manageAuth({ prop: 'forgotPassword', value: false });
                         }}
                         customTextStyle={textStyleButton2}
                         customStyle={buttonStyle2}
@@ -387,8 +477,7 @@ class AuthPage extends Component {
                     </CustomButton>
                     <CustomButton
                         onPress={() => {
-                            manageAuth({ prop: 'type', value: '' });
-                            manageAuth({ prop: 'register', value: true });
+                            manageAuth({ prop: 'reg', value: true });
                         }}
                         customTextStyle={textStyleButton2}
                         customStyle={buttonStyle3}
@@ -411,8 +500,7 @@ class AuthPage extends Component {
             <View style={viewStyleButton}>
                 <CustomButton
                     onPress={() => {
-                        manageAuth({ prop: 'type', value: 'host' });
-                        manageAuth({ prop: 'login', value: true });
+                        manageAuth({ prop: 'loginHost', value: true });
                     }}
                     customTextStyle={textStyleButton1}
                     customStyle={buttonStyle1}
@@ -422,8 +510,7 @@ class AuthPage extends Component {
                 </CustomButton>
                 <CustomButton
                     onPress={() => {
-                        manageAuth({ prop: 'type', value: 'staff' });
-                        manageAuth({ prop: 'login', value: true });
+                        manageAuth({ prop: 'loginStaff', value: true });
                     }}
                     customTextStyle={textStyleButton1}
                     customStyle={buttonStyle1}
@@ -433,7 +520,7 @@ class AuthPage extends Component {
                 </CustomButton>
                 <CustomButton
                     onPress={() => manageAuth({
-                        prop: 'register',
+                        prop: 'reg',
                         value: true
                     })}
                     customTextStyle={textStyleButton1}
@@ -466,9 +553,11 @@ class AuthPage extends Component {
     }
 
     render() {
-        const { viewStyle } = AuthPageStyles;
+        const { viewStyle, titleStyle } = AuthPageStyles;
+        console.log('props in auth page --> ', this.props);
         return (
             <View style={viewStyle}>
+                <Text style={titleStyle}>Caterr</Text>
                 {this.renderInputs()}
                 {this.renderButton()}
             </View>
@@ -477,6 +566,28 @@ class AuthPage extends Component {
 }
 
 export default connect(({ auth }) => {
-    const { email, password, loading, login, register, forgotPassword } = auth;
-    return { email, password, loading, login, register, forgotPassword };
+    const {
+        email,
+        password,
+        loading,
+        loginStaff,
+        loginHost,
+        reg,
+        regStaff,
+        regHost,
+        forgotPassword,
+        accountType
+    } = auth;
+    return {
+        email,
+        password,
+        loading,
+        loginStaff,
+        loginHost,
+        reg,
+        regStaff,
+        regHost,
+        forgotPassword,
+        accountType
+    };
 }, actions)(AuthPage);

@@ -39,8 +39,8 @@ const CustomButton = (props) => {
 
 const styles = {
     buttonStyle: {
-        backgroundColor: '#318CE7',
-        borderColor: '#318CE7',
+        backgroundColor: '#B1DBF6',
+        borderColor: '#B1DBF6',
         borderRadius: 5,
         marginRight: 10,
         marginLeft: 10
