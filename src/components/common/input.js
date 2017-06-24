@@ -120,7 +120,8 @@ const styles = {
     textStyle: {
         color: '#092949',
         fontSize: 15,
-        marginTop: 2
+        marginTop: 2,
+        fontFamily: 'Inconsolata-Regular'
     },
     endViewStyle: {
         justifyContent: 'center',

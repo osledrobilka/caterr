@@ -109,7 +109,7 @@ class CreateStaffForm extends Component {
                         })}
                         placeholder={'First Name'}
                         autoCapitalize={'words'}
-                        startIconName={'address-card'}
+                        startIconName={'user'}
                         startIconSize={20}
                         startIconColor={'#23324D'}
                         selectionColor={'#0D47A1'}
@@ -125,7 +125,7 @@ class CreateStaffForm extends Component {
                         })}
                         placeholder={'Middle Name'}
                         autoCapitalize={'words'}
-                        startIconName={'address-card'}
+                        startIconName={'user'}
                         startIconSize={20}
                         startIconColor={'#23324D'}
                         selectionColor={'#0D47A1'}
@@ -141,7 +141,7 @@ class CreateStaffForm extends Component {
                         })}
                         placeholder={'Last Name'}
                         autoCapitalize={'words'}
-                        startIconName={'address-card'}
+                        startIconName={'user'}
                         startIconSize={20}
                         startIconColor={'#23324D'}
                         selectionColor={'#0D47A1'}
@@ -157,7 +157,7 @@ class CreateStaffForm extends Component {
                         })}
                         placeholder={'Phone Number'}
                         autoCapitalize={'words'}
-                        startIconName={'address-card'}
+                        startIconName={'phone'}
                         startIconSize={20}
                         startIconColor={'#23324D'}
                         selectionColor={'#0D47A1'}
@@ -172,8 +172,8 @@ class CreateStaffForm extends Component {
                             value
                         })}
                         placeholder={'Email Address'}
-                        autoCapitalize={'words'}
-                        startIconName={'address-card'}
+                        autoCapitalize={'none'}
+                        startIconName={'envelope-o'}
                         startIconSize={20}
                         startIconColor={'#23324D'}
                         selectionColor={'#0D47A1'}
@@ -189,7 +189,7 @@ class CreateStaffForm extends Component {
                         })}
                         placeholder={'Street Address'}
                         autoCapitalize={'words'}
-                        startIconName={'address-card'}
+                        startIconName={'address-card-o'}
                         startIconSize={20}
                         startIconColor={'#23324D'}
                         selectionColor={'#0D47A1'}
@@ -205,7 +205,7 @@ class CreateStaffForm extends Component {
                         })}
                         placeholder={'City'}
                         autoCapitalize={'words'}
-                        startIconName={'address-card'}
+                        startIconName={'address-card-o'}
                         startIconSize={20}
                         startIconColor={'#23324D'}
                         selectionColor={'#0D47A1'}
@@ -221,7 +221,7 @@ class CreateStaffForm extends Component {
                         })}
                         placeholder={'State'}
                         autoCapitalize={'words'}
-                        startIconName={'address-card'}
+                        startIconName={'address-card-o'}
                         startIconSize={20}
                         startIconColor={'#23324D'}
                         selectionColor={'#0D47A1'}
@@ -237,7 +237,7 @@ class CreateStaffForm extends Component {
                         })}
                         placeholder={'Zip Code'}
                         autoCapitalize={'words'}
-                        startIconName={'address-card'}
+                        startIconName={'address-card-o'}
                         startIconSize={20}
                         startIconColor={'#23324D'}
                         selectionColor={'#0D47A1'}

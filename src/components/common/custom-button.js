@@ -47,7 +47,8 @@ const styles = {
     },
     textStyle: {
         color: '#FFFFFF',
-        letterSpacing: 2
+        letterSpacing: 2,
+        fontFamily: 'NewsCycle'
     }
 };
 

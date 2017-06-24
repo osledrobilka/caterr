@@ -74,7 +74,7 @@ export const loginUser = ({ emailAddress, password, type }) => {
     return (dispatch) => {
         firebase.auth().signInWithEmailAndPassword(emailAddress, password)
             .then(() => {
-                const typeString = `reg-${type}`;
+                let typeString = `reg-${type}`;
                 const currentUser = firebase.auth().currentUser;
                 console.log('currentUser --> ', currentUser);
                 const lastLogin = new Date();
@@ -86,38 +86,43 @@ export const loginUser = ({ emailAddress, password, type }) => {
                 };
 
                 if (emailVerified) {
-                    // AsyncStorage.multiGet(
-                    //     ['@email', '@uid', '@lastLogin', '@regComplete', '@type']
-                    // )
-                    //     .then(values => {
-                    //         if (values[0][4] === 'yes') {
-                    //             if ((values[0][1] !== null) && (values[1][1] !== null)) {
-                    //             AsyncStorage.setItem('@lastLogin', JSON.stringify(lastLogin))
-                    //                 .then(() => {
-                    //                     return loginUserSuccess(dispatch, userDetails, typeString);
-                    //                 });
-                    //             } else {
-                    //                 AsyncStorage.multiSet([
-                    //                     ['@email', email],
-                    //                     ['@uid', uid],
-                    //                     ['@lastLogin', JSON.stringify(lastLogin)],
-                    //                 ])
-                    //                 .then(() => {
-                    //                     return loginUserSuccess(dispatch, userDetails, typeString);
-                    //                 });
-                    //             }
-                    //         } else {
-                    //             typeString = `reg-${type}`;
-                    //             AsyncStorage.set('@regComplete', 'no')
-                    //                 .then(() => {
-                    //                     return loginUserSuccess(dispatch, userDetails, typeString);
-                    //                 });
-                    //         }
-                    //     })
-                    //     .catch(() => {
-                    //         return loginUserSuccess(dispatch, userDetails, typeString);
-                    //     });
-                    loginUserSuccess(dispatch, userDetails, typeString);
+                    AsyncStorage.multiGet(
+                        ['@email', '@uid', '@lastLogin', '@regComplete', '@type']
+                    )
+                        .then(values => {
+                            if (values[0][4] === 'yes') {
+                                if ((values[0][1] !== null) && (values[1][1] !== null)) {
+                                AsyncStorage.setItem('@lastLogin', JSON.stringify(lastLogin))
+                                    .then(() => {
+                                    return loginUserSuccess(dispatch, userDetails, typeString);
+                                    });
+                                } else {
+                                    AsyncStorage.multiSet([
+                                        ['@email', email],
+                                        ['@uid', uid],
+                                        ['@lastLogin', JSON.stringify(lastLogin)],
+                                    ])
+                                    .then(() => {
+                                    return loginUserSuccess(dispatch, userDetails, typeString);
+                                    });
+                                }
+                            } else {
+                                typeString = `reg-${type}`;
+                                    AsyncStorage.multiSet([
+                                        ['@email', email],
+                                        ['@uid', uid],
+                                        ['@lastLogin', JSON.stringify(lastLogin)],
+                                        ['@regComplete', 'no']
+                                    ])
+                                    .then(() => {
+                                    return loginUserSuccess(dispatch, userDetails, typeString);
+                                    });
+                            }
+                        })
+                        .catch(() => {
+                            return loginUserSuccess(dispatch, userDetails, typeString);
+                        });
+                    // loginUserSuccess(dispatch, userDetails, typeString);
                 } else {
                     // CASE: auth successful, but account not yet verified.
                     currentUser.sendEmailVerification()

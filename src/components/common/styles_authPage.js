@@ -3,6 +3,7 @@ import { Colors } from './index';
 const {
     customWhite,
     customBeige,
+    customGreyMed,
     // customGrey_exLight,
     // customGrey_light,
     // customGrey_med,
@@ -12,9 +13,9 @@ const {
 
 export const AuthPageStyles = {
     titleStyle: {
-        fontFamily: 'Inconsolata-Regular',
+        fontFamily: 'NewsCycle',
         fontSize: 70,
-        letterSpacing: 8,
+        letterSpacing: 14,
         textAlign: 'center',
         marginTop: 50,
         color: customBlue
@@ -56,10 +57,10 @@ export const AuthPageStyles = {
         marginTop: -10
     },
     textStyleButton1: {
-        color: customBlue
+        color: customGreyMed
     },
     textStyleButton2: {
-        color: customBeige,
+        color: customWhite,
         fontSize: 13,
     },
     viewStyle: {

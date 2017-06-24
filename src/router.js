@@ -43,28 +43,28 @@ const RouterComponent = () => {
                     <Scene
                         key='newStaff'
                         component={CreateStaffForm}
-                        title='New Staff'
+                        title='Staff Application'
                     />
                 </Scene>
                 <Scene key='mainStaff'>
                     <Scene
                         key='staff'
                         component={MainStaffPage}
-                        title='Home'
+                        title='Staff Home'
                     />
                 </Scene>
                 <Scene key='createHost'>
                     <Scene
                         key='newHost'
                         component={CreateHostForm}
-                        title='New Host'
+                        title='Host Application'
                     />
                 </Scene>
                 <Scene key='mainHost'>
                     <Scene
                         key='host'
                         component={MainHostPage}
-                        title='Home'
+                        title='Host Home'
                     />
                 </Scene>
                 {/*
@@ -135,10 +135,10 @@ const RouterComponent = () => {
          },
          navBarTitleStyle: {
              color: '#B1DBF6',
-             fontSize: 26,
+             fontSize: 20,
              letterSpacing: 2,
              textAlign: 'center',
-             fontFamily: 'Inconsolata-Regular'
+             fontFamily: 'NewsCycle'
          },
          barButtonTextStyle: {
              color: '#B1DBF6',
